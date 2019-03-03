@@ -75,7 +75,8 @@ if __name__ == "__main__":
 
     tickets = jc.search_issues(
         '{} AND updatedDate >= "{}" AND updatedDate <= "{}"'
-        .format(args.jira_ql, from_dt.strftime('%Y/%m/%d'), to_dt.strftime('%Y/%m/%d')))
+        .format(args.jira_ql, from_dt.strftime('%Y/%m/%d'), to_dt.strftime('%Y/%m/%d')),
+        maxResults=250)
     for ticket in tickets:
         title = ticket.fields.summary
         for tkn in tkr.tokenize(title):
@@ -91,4 +92,11 @@ if __name__ == "__main__":
         font_path=font_path,
         width=args.width,
         height=args.height).generate(' '.join(words))
-    wordcloud.to_file(args.output_path)
+
+    path_split = os.path.splitext(args.output_path)
+    suffix = "_{}_{}{}".format(
+        from_dt.strftime('%Y-%m-%d'),
+        to_dt.strftime('%Y-%m-%d'),
+        path_split[1])
+    output_path = path_split[0] + suffix
+    wordcloud.to_file(output_path)

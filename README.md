@@ -6,6 +6,10 @@ Requires python3.
 
 Currently script is made for handling Japanese.
 
+Sample image is as follows. More text will be output in actual cases.
+![](./jira2wordcloud.png)
+
+
 ## Usage
 
 ```
